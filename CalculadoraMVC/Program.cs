@@ -23,6 +23,8 @@ public class Program
     {
         TITLE = "Escolha o tipo de cálculo que deseja fazer:";
         CHOICES = new string[] { "MÉDIA", "IMC", "SAIR" };
+
+        Console.Title = $"Calculadora - Aula MVC - ACELERA .NET";
     }
 
     private static void ShowMenu()
