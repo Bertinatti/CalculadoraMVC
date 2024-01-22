@@ -74,7 +74,7 @@ public class Program
                                         return p switch
                                         {
                                             <= 0.0d => ValidationResult.Error("[red]Não é possível ter 0,0 kg de peso.[/]"),
-                                            >= 500.0d => ValidationResult.Error("[red]Não é possível ter mais de 500,00 kg de peso (valor máximo para peso).[/]"),
+                                            > 500.0d => ValidationResult.Error("[red]Não é possível ter mais de 500,00 kg de peso (valor máximo para peso).[/]"),
                                             _ => ValidationResult.Success(),
                                         };
                                     }));
@@ -86,7 +86,7 @@ public class Program
                                         return a switch
                                         {
                                             <= 0 => ValidationResult.Error("[red]Não é possível ter 0 centímetros de altura.[/]"),
-                                            >= 300 => ValidationResult.Error("[red]É preciso ter menos de 300 centímetros de altura (valor máximo para altura).[/]"),
+                                            > 300 => ValidationResult.Error("[red]É preciso ter menos de 300 centímetros de altura (valor máximo para altura).[/]"),
                                             _ => ValidationResult.Success(),
                                         };
                                     }));
@@ -98,12 +98,12 @@ public class Program
                                         return i switch
                                         {
                                             <= 0 => ValidationResult.Error("[red]É preciso ter ao menos 1 ano de idade.[/]"),
-                                            >= 150 => ValidationResult.Error("[red]É preciso ter menos de 150 anos de idade (valor máximo para idade).[/]"),
+                                            > 150 => ValidationResult.Error("[red]É preciso ter menos de 150 anos de idade (valor máximo para idade).[/]"),
                                             _ => ValidationResult.Success(),
                                         };
                                     }));
 
-        double imc = Math.Round(peso / Math.Sqrt(altura / 100), 2);
+        double imc = Math.Round(peso / Math.Pow((double) altura / 100, 2), 2);
 
         AnsiConsole.WriteLine("");
         AnsiConsole.WriteLine($"O IMC de {nome} é: {imc:0.00}");
@@ -136,9 +136,9 @@ public class Program
             notas[i] = ValidarNotaInserida(posicaoNotas[i]);
         }
 
-        double media = (notas[0] + notas[1] + notas[2]) / 3;
+        double media = Math.Round((notas[0] + notas[1] + notas[2]) / 3, 2);
 
-        AnsiConsole.WriteLine("O aluno foi " + VerificarAprovacao(media));
+        AnsiConsole.WriteLine("O aluno está " + VerificarAprovacao(media));
 
         AnsiConsole.WriteLine($"Média: {media:#.00}");
 
@@ -169,7 +169,7 @@ public class Program
         return media switch
         {
             < 5.0d => "Reprovado",
-            >= 5.0d and < 7.0d => "Recuperação",
+            >= 5.0d and < 7.0d => "de Recuperação",
             >= 7.0d => "Aprovado",
             _ => "Valor não reconhecido"
         };
